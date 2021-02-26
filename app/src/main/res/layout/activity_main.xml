@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:padding="20dp"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnInsert"
+        android:text="@string/insert"
+        style="@style/btn"
+        android:onClick="btnInsert"
+        />
+
+    <Button
+        android:id="@+id/btnSelect"
+        android:text="@string/select"
+        style="@style/btn"
+        android:layout_marginTop="20dp"
+        android:onClick="btnSelect"
+        />
+
+    <Button
+        android:id="@+id/btnUpdate"
+        android:text="@string/update"
+        style="@style/btn"
+        android:layout_marginTop="20dp"
+        android:onClick="btnUpdate"
+        />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:text="@string/delete"
+        style="@style/btn"
+        android:layout_marginTop="20dp"
+        android:onClick="btnDelete"
+        />
+
+    <Button
+        android:id="@+id/btnSelectAll"
+        android:text="Select All"
+        style="@style/btn"
+        android:layout_marginTop="20dp"
+        android:onClick="btnSelectAll"
+        />
+    
+</LinearLayout>

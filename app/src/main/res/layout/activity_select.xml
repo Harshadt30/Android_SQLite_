@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Select"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/idTextView"
+        android:text="ID"
+        style="@style/textView"
+        />
+
+    <EditText
+        android:id="@+id/userID"
+        android:hint="@string/id"
+        style="@style/editText.number"
+        android:layout_marginTop="10dp"
+        />
+
+    <Button
+        android:id="@+id/btnSelect"
+        style="@style/btn"
+        android:text="@string/select"
+        android:layout_marginTop="30dp"
+        />
+
+    <TextView
+        android:id="@+id/usernameTextViews"
+        android:text="Username"
+        android:textSize="22sp"
+        style="@style/textView"
+        />
+
+    <EditText
+        android:id="@+id/userNAME"
+        android:hint="@string/name"
+        style="@style/editText"
+        android:layout_marginTop="10dp"
+        android:enabled="false"
+        />
+
+    <TextView
+        android:id="@+id/passwordTextView"
+        android:text="Password"
+        android:textSize="22sp"
+        style="@style/textView"
+        />
+
+    <EditText
+        android:id="@+id/userPASSWORD"
+        android:hint="@string/password"
+        style="@style/editText"
+        android:layout_marginTop="10dp"
+        android:enabled="false"
+        />
+
+</LinearLayout>
