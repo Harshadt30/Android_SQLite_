@@ -2,6 +2,8 @@ package com.example.database;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
@@ -18,15 +20,16 @@ public class SelectAll extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_all);
+        SQLiteDatabase demoDB = openOrCreateDatabase("demo", MODE_PRIVATE, null);
 
         userList = findViewById(R.id.userListView);
 
         ArrayList<String> user = new ArrayList<>();
-        user.add("User1");
-        user.add("User2");
-        user.add("User3");
-        user.add("User4");
-        user.add("User5");
+        Cursor userRaw = demoDB.rawQuery("SELECT * FROM user ", null);
+        if (userRaw.moveToFirst()) {
+
+            user.add(userRaw.getString(0));
+        }
 
         ArrayAdapter userArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, user);
         userList.setAdapter(userArrayAdapter);
