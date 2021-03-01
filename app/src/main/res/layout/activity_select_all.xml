@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".SelectAll"
     android:orientation="vertical"
-    android:padding="20dp">
+>
 
     <ListView
         android:id="@+id/userListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-    />
+        />
 </LinearLayout>

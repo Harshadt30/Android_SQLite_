@@ -20,7 +20,7 @@ public class Delete extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete);
 
-        SQLiteDatabase demoDB = openOrCreateDatabase("demo", MODE_PRIVATE, null);
+        SQLiteHelper db = new SQLiteHelper(this);
 
         userID = findViewById(R.id.userID);
         userName = findViewById(R.id.userNAME);
@@ -34,11 +34,14 @@ public class Delete extends AppCompatActivity {
             public void onClick(View v) {
 
                 int userId = Integer.parseInt(userID.getText().toString());
-                Cursor userRaw = demoDB.rawQuery("SELECT * FROM user WHERE id = "+userId, null);
-                if (userRaw.moveToFirst()) {
+                Cursor userRaw = db.userRow(userId);
+                if (userRaw.getCount() > 0) {
 
-                    userName.setText(userRaw.getString(1));
-                    userPassword.setText(userRaw.getString(2));
+                    while (userRaw.moveToNext()) {
+
+                        userName.setText(userRaw.getString(1));
+                        userPassword.setText(userRaw.getString(2));
+                    }
 
                 }
                 else {
@@ -53,7 +56,7 @@ public class Delete extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int userId = Integer.parseInt(userID.getText().toString());
-                if(demoDB.delete("user", "id = "+userId, null) > 0) {
+                if(db.userDelete(userId)) {
 
                     userID.setText("");
                     userName.setText("");

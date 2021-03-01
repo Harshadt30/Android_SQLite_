@@ -20,8 +20,7 @@ public class Select extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select);
 
-
-        SQLiteDatabase demoDB = openOrCreateDatabase("demo", MODE_PRIVATE, null);
+        SQLiteHelper db = new SQLiteHelper(this);
 
         userID = findViewById(R.id.userID);
         userName = findViewById(R.id.userNAME);
@@ -34,16 +33,20 @@ public class Select extends AppCompatActivity {
             public void onClick(View v) {
 
                 int userId = Integer.parseInt(userID.getText().toString());
-                Cursor userRaw = demoDB.rawQuery("SELECT * FROM user WHERE id = "+userId, null);
-                if (userRaw.moveToFirst()) {
+                Cursor cursor = db.userRow(userId);
 
-                    userName.setText(userRaw.getString(1));
-                    userPassword.setText(userRaw.getString(2));
+                if (cursor.getCount() == 0) {
 
+                    Toast.makeText(getApplicationContext(), "No User Found", Toast.LENGTH_SHORT).show();
                 }
                 else {
 
-                    Toast.makeText(getApplicationContext(), "No User Found", Toast.LENGTH_SHORT).show();
+                    while (cursor.moveToNext()) {
+
+                        userName.setText(cursor.getString(1));
+                        userPassword.setText(cursor.getString(2));
+                    }
+
                 }
 
             }

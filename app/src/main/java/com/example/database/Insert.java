@@ -2,8 +2,6 @@ package com.example.database;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.View;
@@ -21,9 +19,9 @@ public class Insert extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert);
 
-        SQLiteDatabase demoDB = openOrCreateDatabase("demo", MODE_PRIVATE, null);
+        SQLiteHelper db = new SQLiteHelper(this);
 
-        userID = (EditText) findViewById(R.id.userID);
+
         userNAME = (EditText) findViewById(R.id.userNAME);
         userPASSWORD = (EditText) findViewById(R.id.userPASSWORD);
 
@@ -33,21 +31,17 @@ public class Insert extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                int userId = Integer.parseInt(userID.getText().toString());
                 String userName = userNAME.getText().toString();
                 String userPassword = userPASSWORD.getText().toString();
-                ContentValues user = new ContentValues();
-                user.put("id", userId);
-                user.put("name", userName);
-                user.put("password", userPassword);
 
-//                demoDB.execSQL("INSERT INTO user VALUES('"+userId+"', '"+userName+"', '"+userPassword+"')", null);
-                if(demoDB.insert("user", null, user) > 0){
+                if(db.addUser(new UserInfo(userName, userPassword)) == true) {
 
                     Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_SHORT).show();
                 }
-                demoDB.close();
+                else {
 
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

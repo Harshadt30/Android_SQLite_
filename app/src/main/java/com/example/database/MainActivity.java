@@ -14,9 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SQLiteDatabase demoDB = openOrCreateDatabase("demo", MODE_PRIVATE, null);
-        demoDB.execSQL("CREATE TABLE IF NOT EXISTS user (id INT, name VARCHAR, password VACHAR)");
-        demoDB.close();
+        SQLiteHelper db = new SQLiteHelper(this);
     }
 
     public void btnInsert(View view) {

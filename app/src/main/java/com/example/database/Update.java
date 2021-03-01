@@ -21,7 +21,7 @@ public class Update extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
 
-        SQLiteDatabase demoDB = openOrCreateDatabase("demo", MODE_PRIVATE, null);
+        SQLiteHelper db = new SQLiteHelper(this);
 
         userID = findViewById(R.id.userID);
         userName = findViewById(R.id.userNAME);
@@ -35,11 +35,15 @@ public class Update extends AppCompatActivity {
             public void onClick(View v) {
 
                 int userId = Integer.parseInt(userID.getText().toString());
-                Cursor userRaw = demoDB.rawQuery("SELECT * FROM user WHERE id = "+userId, null);
-                if (userRaw.moveToFirst()) {
+                Cursor userRaw = db.userRow(userId);
 
-                    userName.setText(userRaw.getString(1));
-                    userPassword.setText(userRaw.getString(2));
+                if (userRaw.getCount() > 0) {
+
+                    while (userRaw.moveToNext()) {
+
+                        userName.setText(userRaw.getString(1));
+                        userPassword.setText(userRaw.getString(2));
+                    }
 
                 }
                 else {
@@ -56,10 +60,8 @@ public class Update extends AppCompatActivity {
 
                 int userId = Integer.parseInt(userID.getText().toString());
                 ContentValues updateVal = new ContentValues();
-                updateVal.put("name", userName.getText().toString());
-                updateVal.put("password", userPassword.getText().toString());
 
-                if(demoDB.update("user", updateVal, "id="+userId, null) > 0) {
+                if(db.userUpdate(userId, userName.getText().toString(), userPassword.getText().toString())) {
 
                     Toast.makeText(getApplicationContext(), "User Updated", Toast.LENGTH_SHORT).show();
                 }
