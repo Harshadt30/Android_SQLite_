@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 public class SQLiteHelper extends SQLiteOpenHelper {
 
 //    Defining table and columns
@@ -100,10 +102,21 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
 //    Selecting all rows from database
-    public Cursor userAllSelect () {
+    public ArrayList<UserInfo> userAllSelect () {
 
+        ArrayList<UserInfo> users = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_NAME, null);
-        return cursor;
+        while (cursor.moveToNext()) {
+
+            int id = Integer.parseInt(cursor.getString(0));
+            String name = cursor.getString(1);
+            String password = cursor.getString(2);
+
+            UserInfo userRow = new UserInfo(id, name, password);
+            users.add(userRow);
+        }
+
+        return users;
     }
 }

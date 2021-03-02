@@ -6,6 +6,14 @@ public class UserInfo {
     private String name;
     private String password;
 
+    public UserInfo() { }
+
+    public UserInfo(int id, String name, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+    }
+
     public int getId() {
         return id;
     }
@@ -26,6 +34,9 @@ public class UserInfo {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public UserInfo(String name, String password) {
         this.name = name;
